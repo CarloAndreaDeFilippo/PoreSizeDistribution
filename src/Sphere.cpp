@@ -36,7 +36,7 @@ double Sphere::minDistance(const std::vector<double> cm, const std::array<double
   return sqrt(sqrDist);
 }
 
-std::string Sphere::cogli1(std::string color, const std::array<double, 3>& Lbox) {
+std::string Sphere::cogli2(std::string color, const std::array<double, 3>& Lbox) {
   std::string output = "";
 
   for (int ax = 0; ax < 3; ax++) {

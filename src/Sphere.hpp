@@ -24,5 +24,5 @@ class Sphere {
 
   double minDistance(const std::vector<double> cm, const std::array<double, 3>& Lbox);
 
-  std::string cogli1(std::string color, const std::array<double, 3>& Lbox);
+  std::string cogli2(std::string color, const std::array<double, 3>& Lbox);
 };

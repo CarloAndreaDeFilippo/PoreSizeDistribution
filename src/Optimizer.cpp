@@ -11,8 +11,8 @@ void Optimizer::randomP(ParticleSystem& partSys) {
       constrData.vecP[ax] = rng.randomDouble(-0.5 * partSys.Lbox[ax], 0.5 * partSys.Lbox[ax]);
 
     for (size_t np = 0; np < partSys.N; np++) {
-      double overlapDistance = 2. * partSys.particles[np].D;  //! Per non considerare il vuoto fra polimeri molto vicini
-
+      // I consider two spheres "close to each other" if their distance is less than 2 times their diameter
+      double overlapDistance = 2. * partSys.particles[np].D;
       double distance = partSys.particles[np].minDistance(constrData.vecP, partSys.Lbox);
 
       if (distance <= overlapDistance) {

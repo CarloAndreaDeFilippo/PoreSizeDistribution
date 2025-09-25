@@ -1,10 +1,10 @@
-#include "Cogli1.hpp"
+#include "Cogli2.hpp"
 
 #include <fstream>
 #include <iomanip>
 #include <iostream>
 
-void Cogli1::box(const std::array<double, 3>& Lbox, std::string filename) {
+void Cogli2::box(const std::array<double, 3>& Lbox, std::string filename) {
   std::ofstream file_out;
 
   file_out.open(filename);

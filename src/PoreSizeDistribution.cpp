@@ -74,7 +74,7 @@ void PoreSizeDistribution::cogliPore(const std::string filename, std::string col
   file_out << std::fixed << std::setprecision(16);
 
   for (auto& part : poreSpheres) {
-    file_out << part.cogli1(color, Lbox);
+    file_out << part.cogli2(color, Lbox);
   }
 
   file_out.close();

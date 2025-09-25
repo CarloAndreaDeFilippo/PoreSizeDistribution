@@ -38,7 +38,7 @@ void ParticleSystem::loadSystem(const std::string infile) {
   }
 }
 
-void ParticleSystem::cogli1(const std::string filename, std::string color, const bool append) {
+void ParticleSystem::cogli2(const std::string filename, std::string color, const bool append) {
   std::ofstream file_out;
 
   if (append == false) {
@@ -55,7 +55,7 @@ void ParticleSystem::cogli1(const std::string filename, std::string color, const
   file_out << std::fixed << std::setprecision(16);
 
   for (auto& part : particles) {
-    file_out << part.cogli1(color, Lbox);
+    file_out << part.cogli2(color, Lbox);
   }
 
   file_out.close();

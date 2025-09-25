@@ -4,9 +4,9 @@
 #include <string>
 #include <vector>
 
-namespace Cogli1 {
+namespace Cogli2 {
 
-// Definition of simulation box Cogli1 file
+// Definition of simulation box Cogli2 file
 void box(const std::array<double, 3>& L, std::string filename);
 
-}  // namespace Cogli1
+}  // namespace Cogli2

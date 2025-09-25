@@ -20,5 +20,5 @@ class ParticleSystem {
   void addParticle(const Sphere& part);
   void loadSystem(const std::string infile);
 
-  void cogli1(const std::string filename, std::string color, const bool append);
+  void cogli2(const std::string filename, std::string color, const bool append);
 };

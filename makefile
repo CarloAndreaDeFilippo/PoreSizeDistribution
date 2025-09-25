@@ -17,14 +17,18 @@ SOURCES = $(wildcard $(SRCDIR)/*.cpp)
 OBJECTS = $(patsubst $(SRCDIR)/%.cpp,$(OBJDIR)/%.o,$(SOURCES))
 
 # The final executable file
-EXECUTABLE = psd
+EXECUTABLE = psd.out
 
 all: $(SOURCES) $(EXECUTABLE)
 
 $(EXECUTABLE): $(OBJECTS)
 	$(CC) $(OBJECTS) -o $@ $(LFLAGS)
 
-$(OBJDIR)/%.o: $(SRCDIR)/%.cpp
+# Ensure obj directory exists before compiling any .o
+$(OBJDIR):
+	mkdir -p $(OBJDIR)
+
+$(OBJDIR)/%.o: $(SRCDIR)/%.cpp | $(OBJDIR)
 	$(CC) $(CFLAGS) $< -o $@
 
 clean:
