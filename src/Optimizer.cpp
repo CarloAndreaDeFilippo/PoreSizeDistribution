@@ -2,7 +2,7 @@
 
 #include "rng.hpp"
 
-void Optimizer::randomP(ParticleSystem& partSys) {
+void Optimizer::randomPoint(ParticleSystem& partSys) {
   bool overlap = true;
   while (overlap == true) {
     overlap = false;
@@ -10,6 +10,7 @@ void Optimizer::randomP(ParticleSystem& partSys) {
     for (int ax = 0; ax < 3; ax++)
       constrData.vecP[ax] = rng.randomDouble(-0.5 * partSys.Lbox[ax], 0.5 * partSys.Lbox[ax]);
 
+    // TODO: implement Liked Cell Lists for the distance check
     for (size_t np = 0; np < partSys.N; np++) {
       // I consider two spheres "close to each other" if their distance is less than 2 times their diameter
       double overlapDistance = 2. * partSys.particles[np].D;

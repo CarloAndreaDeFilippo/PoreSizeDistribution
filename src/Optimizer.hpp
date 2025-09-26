@@ -29,7 +29,7 @@ class Optimizer {
     constrData.Lbox = lbox;
   }
 
-  void randomP(ParticleSystem& partSys);
+  void randomPoint(ParticleSystem& partSys);
   void initializeOptimization(ParticleSystem& partSys);
   void optimize();
 };
