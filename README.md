@@ -23,15 +23,25 @@ cd PoreSizeDistribution
 make -j
 ```
 
-To use once built:
+To use once built (with all available threads):
 
 ```
-./psd.out
+./psd.out CONFIGURATION_FILE
+```
+
+To select the number of threads, use:
+
+```
+OMP_NUM_THREADS=4 ./psd.out CONFIGURATION_FILE
 ```
 
 ### Input file
 
-The input file describes the system. The first row of the input file contains the box dimensions $(Lx, Ly, Lz)$, e.g. ```50 50 50```. Each subsequent row represents the position of the center of mass of each sphere in the system $(x, y, z)$. At the moment the program assumes the spheres to be all the same with diameter set to 1, but this will be changed to account for sets of spheres of different sizes.
+The input file describes the system. The first row of the input file contains the box dimensions $(Lx, Ly, Lz)$, e.g. ```50 50 50```. The system is centered around $(0, 0, 0)$, meaning that each axis range is $(-L_i/2, L_i/2)$. Each subsequent row represents the position of the center of mass of each sphere in the system $(x, y, z)$.
+
+At the moment the program assumes the spheres to be all the same with diameter set to 1, but this will be changed to account for sets of spheres of different sizes.
+
+In the ```docs/ExampleConfiguration``` folder there is a example configuration, together with a simple lammpstrj and a Python script to convert the trajectory to usable data.
 
 ### Output
 

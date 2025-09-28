@@ -13,8 +13,15 @@
 #include "Utilities.hpp"
 #include "rng.hpp"
 
-int main() {
-  ParticleSystem partSys("configuration.txt");
+int main(int argc, char** argv) {
+  if (argc < 2) {
+    std::cout << "Error, specify the name of the configuration file.\n";
+    exit(-1);
+  }
+
+  std::string confFileName = argv[1];
+
+  ParticleSystem partSys(confFileName);
 
   PoreSizeDistribution poreDistr(partSys.Lbox);
 
@@ -33,7 +40,7 @@ int main() {
   size_t maxCogliSpheres = 5000;  // Maximum number of spheres to be drawn in Cogli2
   int stepsToAverage = 1000;
   int loopNumber = 0;
-  int maxLoops = 1000;
+  int maxLoops = 100;
 
   do {
     std::cout << "Loop #" << loopNumber << "\n";
@@ -50,7 +57,7 @@ int main() {
 
       optimizer.optimize();
 
-      if (poreDistr.poreSpheres.size() < maxCogliSpheres) {
+      if (useCogli2 && poreDistr.poreSpheres.size() < maxCogliSpheres) {
         Sphere sph(2. * optimizer.maxDist);
         sph.tf.cm = {optimizer.x[0], optimizer.x[1], optimizer.x[2]};
         poreDistr.insertSphere(sph);
@@ -66,7 +73,8 @@ int main() {
 
   } while (poreDistr.averageError > poreDistr.errorTolerance && loopNumber < maxLoops);
 
-  poreDistr.cogliPore(cogliFile, "1,0,0,0.25", true);
+  if (useCogli2)
+    poreDistr.cogliPore(cogliFile, "1,0,0,0.25", true);
 
   poreDistr.normalizeHistogram((loopNumber + 1.) * stepsToAverage);
   poreDistr.saveHistogram(dataFolder + "/Histogram.txt");
