@@ -38,7 +38,7 @@ The input file describes the system. The first row of the input file contains th
 The program computes the distribution and returns the Histogram.txt in the Data folder.
 
 Moreover, it returns a [cogli2](https://sourceforge.net/projects/cogli1/) file to visualize the pore in the Cogli2 folder. The spheres of the input system are visualized in blue, while the pore is represented in red:
-![Cogli2Example](/docs/PoreExample.png)
 
+<img src="/docs/PoreExample.png" width=50% height=50%>
 
 [^1]: Langmuir 2006, 22, 18, 7726-7731, [https://doi.org/10.1021/la052651k](https://doi.org/10.1021/la052651k)
