@@ -32,7 +32,7 @@ To use once built (with all available threads):
 To select the number of threads, use:
 
 ```
-OMP_NUM_THREADS=4 ./psd.out CONFIGURATION_FILE
+OMP_NUM_THREADS=NUMBER_OF_THREADS ./psd.out CONFIGURATION_FILE
 ```
 
 ### Input file
