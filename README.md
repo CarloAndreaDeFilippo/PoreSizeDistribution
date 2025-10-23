@@ -14,7 +14,7 @@ Currently, only Linux is supported.
 
 * C++11 compiler (g++)
 * OpenMP-enabled compiler (for parallelization)
-* [NLopt](https://github.com/stevengj/nlopt) for nonlinear optimization, follow their installation instructions. NB: I had to install libnlopt0 package on Linux after installing NLopt to run the code (sudo apt-get install libnlopt0).
+* [NLopt](https://github.com/stevengj/nlopt) for nonlinear optimization, follow their installation instructions. Alternatively, install libnlopt0 package on Linux (sudo apt-get install libnlopt0).
 
 To build:
 
