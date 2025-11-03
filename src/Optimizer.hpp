@@ -4,10 +4,11 @@
 #include <nlopt.hpp>
 #include <vector>
 
+#include "LinkedCellList.hpp"
 #include "ParticleSystem.hpp"
 
 struct ConstraintData {
-  std::vector<double> vecP{0., 0., 0.};
+  std::array<double, 3> vecP{0., 0., 0.};
   std::array<double, 3> Lbox = {1., 1., 1.};
 };
 
@@ -29,7 +30,7 @@ class Optimizer {
     constrData.Lbox = lbox;
   }
 
-  void randomPoint(ParticleSystem& partSys);
+  void randomPoint(const ParticleSystem& partSys, const LinkedCellList<Sphere>& cellList);
   void initializeOptimization(ParticleSystem& partSys);
   void optimize();
 };

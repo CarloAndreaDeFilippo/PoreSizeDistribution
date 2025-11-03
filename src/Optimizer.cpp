@@ -2,7 +2,7 @@
 
 #include "rng.hpp"
 
-void Optimizer::randomPoint(ParticleSystem& partSys) {
+void Optimizer::randomPoint(const ParticleSystem& partSys, const LinkedCellList<Sphere>& cellList) {
   bool overlap = true;
   while (overlap == true) {
     overlap = false;
@@ -10,26 +10,20 @@ void Optimizer::randomPoint(ParticleSystem& partSys) {
     for (int ax = 0; ax < 3; ax++)
       constrData.vecP[ax] = rng.randomDouble(-0.5 * partSys.Lbox[ax], 0.5 * partSys.Lbox[ax]);
 
-    // TODO: implement Liked Cell Lists for the distance check
-    for (size_t np = 0; np < partSys.N; np++) {
-      // I consider two spheres "close to each other" if their distance is less than 2 times their diameter
-      double overlapDistance = 2. * partSys.particles[np].D;
-      double distance = partSys.particles[np].minDistance(constrData.vecP, partSys.Lbox);
+    // TODO: Placeholder for systems with spheres of different sizes
+    double overlapDistance = 2. * partSys.particles[0].D;
 
-      if (distance <= overlapDistance) {
-        overlap = true;
-        break;
-      }
-    }
+    if (cellList.minDistance(constrData.vecP, partSys.particles, partSys.Lbox) < overlapDistance) overlap = true;
   }
 }
 
 double maxRadius(const std::vector<double>& x, std::vector<double>& grad, void* f_data) {
   ParticleSystem* partSys = static_cast<ParticleSystem*>(f_data);
 
-  std::vector<double> center = {x[0], x[1], x[2]};
+  std::array<double, 3> center = {x[0], x[1], x[2]};
 
   double minimumDistance = 1e10;
+  // TODO: make a function that finds the closest sphere (even if they are not in the 27 surrounding cells)
   for (size_t np = 0; np < partSys->N; np++) {
     double distance = partSys->particles[np].minDistance(center, partSys->Lbox) - partSys->particles[np].R;
 

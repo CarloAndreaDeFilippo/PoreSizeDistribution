@@ -23,7 +23,7 @@ bool Sphere::overlapCheck(const Sphere& np, const std::array<double, 3>& Lbox) {
   return false;
 }
 
-double Sphere::minDistance(const std::vector<double> cm, const std::array<double, 3>& Lbox) {
+double Sphere::minDistance(const std::array<double, 3>& cm, const std::array<double, 3>& Lbox) const {
   std::array<double, 3> dist;
   double sqrDist = 0.;
 

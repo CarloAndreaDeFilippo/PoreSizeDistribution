@@ -1,5 +1,6 @@
 #include <omp.h>
 
+#include <algorithm>
 #include <fstream>
 #include <iomanip>
 #include <iostream>
@@ -7,6 +8,7 @@
 #include <sstream>
 
 #include "Cogli2.hpp"
+#include "LinkedCellList.hpp"
 #include "Optimizer.hpp"
 #include "ParticleSystem.hpp"
 #include "PoreSizeDistribution.hpp"
@@ -42,6 +44,16 @@ int main(int argc, char** argv) {
   int loopNumber = 0;
   int maxLoops = 100;
 
+  // Setup LinkedCellList for random point
+  LinkedCellList<Sphere> cellList;
+
+  double maxParticleDistance = 0.;
+
+  for (const auto& np : partSys.particles) maxParticleDistance = std::max(maxParticleDistance, np.D);
+
+  cellList.setCellMinWidth(maxParticleDistance);
+  cellList.createList(partSys.particles, partSys.Lbox);
+
   do {
     std::cout << "Loop #" << loopNumber << "\n";
     loopNumber++;
@@ -52,7 +64,7 @@ int main(int argc, char** argv) {
     for (int step = 0; step < stepsToAverage; step++) {
       Optimizer optimizer(partSys.Lbox);
 
-      optimizer.randomPoint(partSys);
+      optimizer.randomPoint(partSys, cellList);
       optimizer.initializeOptimization(partSys);
 
       optimizer.optimize();
