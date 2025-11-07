@@ -21,7 +21,7 @@ void PoreSizeDistribution::initialize(const std::array<double, 3>& lbox) {
   oldPoreSizeDistr.resize(binNumber, 0);
 }
 
-void PoreSizeDistribution::insertData(const double& diameter) {
+void PoreSizeDistribution::insertData(double diameter) {
   size_t bin = diameter / binSize;
 
   poreSizeDistr[bin]++;
@@ -31,7 +31,7 @@ void PoreSizeDistribution::insertSphere(const Sphere& sph) {
   poreSpheres.push_back(sph);
 }
 
-void PoreSizeDistribution::normalizeHistogram(const size_t& numSteps) {
+void PoreSizeDistribution::normalizeHistogram(size_t numSteps) {
   for (auto& bin : poreSizeDistr)
     bin /= ((double)numSteps);
 }
@@ -47,7 +47,7 @@ void PoreSizeDistribution::saveHistogram(const std::string& filename) {
   file_out.close();
 }
 
-void PoreSizeDistribution::computeAverageError(const int loopNumber, const int stepsToAverage) {
+void PoreSizeDistribution::computeAverageError(int loopNumber, int stepsToAverage) {
   averageError = 0.;
   int currentStep = loopNumber * stepsToAverage;
   int lastStep = currentStep - stepsToAverage;
@@ -60,7 +60,7 @@ void PoreSizeDistribution::computeAverageError(const int loopNumber, const int s
   averageError /= ((double)binNumber * currentStep);
 }
 
-void PoreSizeDistribution::cogliPore(const std::string& filename, const std::string& color, const bool append) {
+void PoreSizeDistribution::cogliPore(const std::string& filename, const std::string& color, bool append) {
   std::ofstream file_out;
 
   if (append == false) {

@@ -10,7 +10,7 @@ void ParticleSystem::addParticle(const Sphere& part) {
   N++;
 }
 
-void ParticleSystem::loadSystem(const std::string infile) {
+void ParticleSystem::loadSystem(const std::string& infile) {
   std::string line;
 
   std::ifstream file_in(infile);
@@ -38,7 +38,7 @@ void ParticleSystem::loadSystem(const std::string infile) {
   }
 }
 
-void ParticleSystem::cogli2(const std::string filename, std::string color, const bool append) {
+void ParticleSystem::cogli2(const std::string& filename, std::string& color, const bool append) {
   std::ofstream file_out;
 
   if (append == false) {

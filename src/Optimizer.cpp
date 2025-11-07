@@ -13,7 +13,7 @@ void Optimizer::randomPoint(const ParticleSystem& partSys, const LinkedCellList<
     // TODO: Placeholder for systems with spheres of different sizes
     double overlapDistance = 2. * partSys.particles[0].D;
 
-    if (cellList.minDistance(constrData.vecP, partSys.particles, partSys.Lbox) < overlapDistance) overlap = true;
+    if (cellList.minDistance(constrData.vecP, partSys.particles) < overlapDistance) overlap = true;
   }
 }
 

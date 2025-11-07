@@ -10,6 +10,7 @@
 template <class Object>
 class LinkedCellList {
  public:
+  std::array<double, 3> Lbox;
   double cellMinWidth = 1.;
   std::array<double, 3> cellWidth = {{1., 1., 1.}};
   std::vector<int> cellsPerAxis = {{1, 1, 1}};
@@ -20,20 +21,25 @@ class LinkedCellList {
   std::vector<int> head;
   std::vector<int> list;
 
-  void setCellMinWidth(const double minWidth);
-  std::array<int, 4> calculateObjectCell(const int obj, const std::vector<Object>& objects, const std::array<double, 3>& Lbox);
-  void createList(const std::vector<Object>& objects, const std::array<double, 3>& Lbox);
-  double minDistance(const std::array<double, 3>& cm, const std::vector<Object>& objects, const std::array<double, 3>& Lbox) const;
+  LinkedCellList() = default;
+  LinkedCellList(std::array<double, 3> lbox) {
+    Lbox = lbox;
+  }
+
+  void setCellMinWidth(double minWidth);
+  std::array<int, 4> calculateObjectCell(int obj, const std::vector<Object>& objects);
+  void createList(const std::vector<Object>& objects);
+  double minDistance(const std::array<double, 3>& cm, const std::vector<Object>& objects) const;
   void printList();
 };
 
 template <class Object>
-inline void LinkedCellList<Object>::setCellMinWidth(const double minWidth) {
+inline void LinkedCellList<Object>::setCellMinWidth(double minWidth) {
   cellMinWidth = minWidth;
 }
 
 template <class Object>
-inline std::array<int, 4> LinkedCellList<Object>::calculateObjectCell(const int obj, const std::vector<Object>& objects, const std::array<double, 3>& Lbox) {
+inline std::array<int, 4> LinkedCellList<Object>::calculateObjectCell(int obj, const std::vector<Object>& objects) {
   std::array<int, 4> cellIndex = {0, 0, 0, 0};
 
   for (int i = 0; i < 3; i++) cellIndex[i] = (objects[obj].tf.cm[i] + 0.5 * Lbox[i]) / cellWidth[i];
@@ -44,7 +50,7 @@ inline std::array<int, 4> LinkedCellList<Object>::calculateObjectCell(const int 
 }
 
 template <class Object>
-inline void LinkedCellList<Object>::createList(const std::vector<Object>& objects, const std::array<double, 3>& Lbox) {
+inline void LinkedCellList<Object>::createList(const std::vector<Object>& objects) {
   for (int i = 0; i < 3; i++) {
     cellsPerAxis[i] = Lbox[i] / cellMinWidth;
 
@@ -65,7 +71,7 @@ inline void LinkedCellList<Object>::createList(const std::vector<Object>& object
   // Linked Cell List construction
 
   for (size_t obj = 0; obj < objects.size(); obj++) {
-    std::array<int, 4> cellIndex = calculateObjectCell(obj, objects, Lbox);
+    std::array<int, 4> cellIndex = calculateObjectCell(obj, objects);
 
     list[obj] = head[cellIndex[3]];
     head[cellIndex[3]] = obj;
@@ -77,7 +83,7 @@ inline void LinkedCellList<Object>::createList(const std::vector<Object>& object
 }
 
 template <class Object>
-inline double LinkedCellList<Object>::minDistance(const std::array<double, 3>& cm, const std::vector<Object>& objects, const std::array<double, 3>& Lbox) const {
+inline double LinkedCellList<Object>::minDistance(const std::array<double, 3>& cm, const std::vector<Object>& objects) const {
   double minDist = DBL_MAX;
   std::array<int, 4> cellIndexCM = {0, 0, 0, 0};
 

@@ -20,9 +20,8 @@ class Sphere {
   }
 
   double minDistance(const Sphere& np, const std::array<double, 3>& Lbox);
+  double minDistance(const std::array<double, 3>& cm, const std::array<double, 3>& Lbox) const;
   bool overlapCheck(const Sphere& np, const std::array<double, 3>& Lbox);
 
-  double minDistance(const std::array<double, 3>& cm, const std::array<double, 3>& Lbox) const;
-
-  std::string cogli2(std::string color, const std::array<double, 3>& Lbox);
+  std::string cogli2(const std::string& color, const std::array<double, 3>& Lbox);
 };

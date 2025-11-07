@@ -7,6 +7,6 @@
 namespace Cogli2 {
 
 // Definition of simulation box Cogli2 file
-void box(const std::array<double, 3>& L, std::string filename);
+void box(const std::array<double, 3>& L, const std::string& filename);
 
 }  // namespace Cogli2

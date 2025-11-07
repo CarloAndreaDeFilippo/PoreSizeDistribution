@@ -1,35 +1,43 @@
-
 # Compiler and compiler flags
-CC = g++ -std=c++11
-CFLAGS = -c -g -Wall -Wextra -O3 -fopenmp
-LFLAGS = -pthread -fopenmp -lnlopt -lm
+CXX      := g++
+CXXFLAGS := -std=c++11 -Wall -Wextra -fopenmp
+LFLAGS   := -pthread -fopenmp -lnlopt -lm
 
-# Directory containing the source files
-SRCDIR = src
+# Directories
+SRCDIR   := src
+OBJDIR   := obj
 
-# Directory to place the object files
-OBJDIR = obj
+# Sources and objects
+SOURCES  := $(wildcard $(SRCDIR)/*.cpp)
+OBJECTS  := $(patsubst $(SRCDIR)/%.cpp,$(OBJDIR)/%.o,$(SOURCES))
 
-# List of source files
-SOURCES = $(wildcard $(SRCDIR)/*.cpp)
+# Executable
+EXECUTABLE := psd.out
 
-# List of object files to be created
-OBJECTS = $(patsubst $(SRCDIR)/%.cpp,$(OBJDIR)/%.o,$(SOURCES))
+# Build type: default = release
+BUILD ?= release
 
-# The final executable file
-EXECUTABLE = psd.out
+# Adjust flags based on build type
+ifeq ($(BUILD),debug)
+  CXXFLAGS += -g -O0
+else ifeq ($(BUILD),release)
+  CXXFLAGS += -O3
+else
+  $(error Unknown build type '$(BUILD)'. Use BUILD=debug or BUILD=release)
+endif
 
-all: $(SOURCES) $(EXECUTABLE)
+# Default target
+all: $(EXECUTABLE)
 
 $(EXECUTABLE): $(OBJECTS)
-	$(CC) $(OBJECTS) -o $@ $(LFLAGS)
+	$(CXX) $(OBJECTS) -o $@ $(LFLAGS)
 
-# Ensure obj directory exists before compiling any .o
+# Ensure obj directory exists before compiling
 $(OBJDIR):
 	mkdir -p $(OBJDIR)
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.cpp | $(OBJDIR)
-	$(CC) $(CFLAGS) $< -o $@
+	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 clean:
 	rm -f $(OBJDIR)/*.o $(EXECUTABLE)

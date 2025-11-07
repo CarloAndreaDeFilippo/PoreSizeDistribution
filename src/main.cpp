@@ -32,11 +32,12 @@ int main(int argc, char** argv) {
 
   bool useCogli2 = true;
   std::string cogliFile = "Cogli2/conf.txt";
+  std::string sphereColor = "0,0,1,1";
 
   if (useCogli2) {
     if (!directoryExists("Cogli2")) makeDirectory("Cogli2");
     Cogli2::box(partSys.Lbox, cogliFile);
-    partSys.cogli2(cogliFile, "0,0,1,1", true);
+    partSys.cogli2(cogliFile, sphereColor, true);
   }
 
   size_t maxCogliSpheres = 5000;  // Maximum number of spheres to be drawn in Cogli2
@@ -45,14 +46,14 @@ int main(int argc, char** argv) {
   int maxLoops = 100;
 
   // Setup LinkedCellList for random point
-  LinkedCellList<Sphere> cellList;
+  LinkedCellList<Sphere> cellList(partSys.Lbox);
 
   double maxParticleDistance = 0.;
 
   for (const auto& np : partSys.particles) maxParticleDistance = std::max(maxParticleDistance, np.D);
 
   cellList.setCellMinWidth(maxParticleDistance);
-  cellList.createList(partSys.particles, partSys.Lbox);
+  cellList.createList(partSys.particles);
 
   do {
     std::cout << "Loop #" << loopNumber << "\n";

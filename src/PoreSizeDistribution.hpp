@@ -19,15 +19,15 @@ class PoreSizeDistribution {
 
   std::vector<Sphere> poreSpheres;
 
-  PoreSizeDistribution(const std::array<double, 3> lbox) {
+  PoreSizeDistribution(const std::array<double, 3>& lbox) {
     initialize(lbox);
   };
 
   void initialize(const std::array<double, 3>& lbox);
-  void insertData(const double& diameter);
+  void insertData(double diameter);
   void insertSphere(const Sphere& sph);
-  void normalizeHistogram(const size_t& numSteps);
+  void normalizeHistogram(size_t numSteps);
   void saveHistogram(const std::string& filename);
-  void computeAverageError(const int loopNumber, const int stepsToAverage);
-  void cogliPore(const std::string& filename, const std::string& color, const bool append);
+  void computeAverageError(int loopNumber, int stepsToAverage);
+  void cogliPore(const std::string& filename, const std::string& color, bool append);
 };
