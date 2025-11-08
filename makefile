@@ -1,7 +1,7 @@
 # Compiler and compiler flags
 CXX      := g++
 CXXFLAGS := -std=c++11 -Wall -Wextra -fopenmp
-LFLAGS   := -pthread -fopenmp -lnlopt -lm
+LFLAGS   := -fopenmp -lnlopt -lm
 
 # Directories
 SRCDIR   := src
