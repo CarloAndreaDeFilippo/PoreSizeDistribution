@@ -11,6 +11,7 @@
 #include "LinkedCellList.hpp"
 #include "Optimizer.hpp"
 #include "ParticleSystem.hpp"
+#include "PoreDistributionSimulation.hpp"
 #include "PoreSizeDistribution.hpp"
 #include "Utilities.hpp"
 #include "rng.hpp"
