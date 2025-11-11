@@ -1,0 +1,11 @@
+{
+    "confFileName": "docs/ExampleConfiguration/configuration.txt",
+    "dataFolder": "Data",
+    "useCogli2": true,
+    "cogliFile": "Cogli2/conf.txt",
+    "sphereColor": "0,0,1,1",
+    "poreSphereColor": "1,0,0,0.25",
+    "maxCogliSpheres": 5000,
+    "stepsToAverage": 1000,
+    "maxLoops": 100
+}
