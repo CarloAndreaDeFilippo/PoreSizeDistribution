@@ -48,6 +48,8 @@ void SimulationSettings::loadSettings(const std::string& settingsFile) {
   }
 
   // Loop settings
+  if (settings.contains("errorTolerance")) errorTolerance = settings["errorTolerance"].get<double>();
+
   if (settings.contains("stepsToAverage")) stepsToAverage = settings["stepsToAverage"].get<int>();
 
   if (settings.contains("maxLoops")) maxLoops = settings["maxLoops"].get<int>();

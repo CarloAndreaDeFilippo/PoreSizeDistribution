@@ -16,6 +16,7 @@ class SimulationSettings {
   size_t maxCogliSpheres = 5000;  // Maximum number of spheres to be drawn in Cogli2
 
   // Loops settings
+  double errorTolerance = 1e-2;
   int stepsToAverage = 1000;
   int maxLoops = 100;
 

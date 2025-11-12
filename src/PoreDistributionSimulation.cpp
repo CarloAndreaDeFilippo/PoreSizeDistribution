@@ -20,6 +20,7 @@ void PoreDistributionSimulation::Simulation() {
   ParticleSystem partSys(simSettings.confFileName);
 
   PoreSizeDistribution poreDistr(partSys.Lbox);
+  poreDistr.errorTolerance = simSettings.errorTolerance;
 
   if (!directoryExists(simSettings.dataFolder)) makeDirectory(simSettings.dataFolder);
 
