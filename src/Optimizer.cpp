@@ -8,7 +8,7 @@ void Optimizer::randomPoint(const ParticleSystem& partSys, const LinkedCellList<
     overlap = false;
 
     for (int ax = 0; ax < 3; ax++)
-      constrData.vecP[ax] = rng.randomDouble(-0.5 * partSys.Lbox[ax], 0.5 * partSys.Lbox[ax]);
+      constrData.vecP[ax] = rng().randomDouble(-0.5 * partSys.Lbox[ax], 0.5 * partSys.Lbox[ax]);
 
     // TODO: Placeholder for systems with spheres of different sizes
     double overlapDistance = 2. * partSys.particles[0].D;

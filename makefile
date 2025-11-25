@@ -19,7 +19,7 @@ BUILD ?= release
 
 # Adjust flags based on build type
 ifeq ($(BUILD),debug)
-  CXXFLAGS += -g -O0
+  CXXFLAGS += -g -O2
 else ifeq ($(BUILD),release)
   CXXFLAGS += -O3
 else
