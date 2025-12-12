@@ -48,7 +48,9 @@ void PoreDistributionSimulation::Simulation() {
 
     poreDistr.oldPoreSizeDistr = poreDistr.poreSizeDistr;
 
+#ifdef USE_OPENMP
 #pragma omp parallel for
+#endif
     for (int step = 0; step < simSettings.stepsToAverage; step++) {
       Optimizer optimizer(partSys.Lbox);
 

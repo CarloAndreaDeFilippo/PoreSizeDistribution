@@ -19,23 +19,38 @@ Currently, only Linux is supported.
 ### Requirements
 
 * C++11 compiler (g++)
-* OpenMP-enabled compiler (for parallelization)
 * [NLopt](https://github.com/stevengj/nlopt) for nonlinear optimization, follow their installation instructions. Alternatively, install libnlopt0 package on Linux (sudo apt-get install libnlopt0).
+* An OpenMP-enabled compiler is not required. OpenMP is enabled by default, but you can disable it at compile time if needed.
 
-To build:
+### Building
+
+In the project directory:
 
 ```
 cd PoreSizeDistribution
+```
+
+Build with OpenMP (default):
+
+```
 make -j
 ```
 
-To use once built (with all available threads):
+Build without OpenMP:
+
+```
+make USE_OMP=0 -j
+```
+
+### Usage
+
+To run the program once built:
 
 ```
 ./psd.out SETTINGS_FILE
 ```
 
-To select the number of threads, use:
+If OpenMP is enabled, you can select the number of threads at runtime:
 
 ```
 OMP_NUM_THREADS=NUMBER_OF_THREADS ./psd.out SETTINGS_FILE

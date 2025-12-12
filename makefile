@@ -1,7 +1,16 @@
 # Compiler and compiler flags
 CXX      := g++
-CXXFLAGS := -std=c++11 -Wall -Wextra -fopenmp
-LFLAGS   := -fopenmp -lnlopt -lm
+CXXFLAGS := -std=c++11 -Wall -Wextra
+LFLAGS   := -lnlopt -lm
+
+# If USE_OMP=1 OpenMP is enabled (default)
+USE_OMP ?= 1
+
+ifeq ($(USE_OMP),1)
+    CXXFLAGS += -fopenmp
+    CPPFLAGS += -DUSE_OPENMP
+    LFLAGS   += -fopenmp
+endif
 
 # Directories
 SRCDIR   := src
@@ -37,7 +46,7 @@ $(OBJDIR):
 	mkdir -p $(OBJDIR)
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.cpp | $(OBJDIR)
-	$(CXX) $(CXXFLAGS) -c $< -o $@
+	$(CXX) $(CXXFLAGS) $(CPPFLAGS) -c $< -o $@
 
 clean:
 	rm -f $(OBJDIR)/*.o $(EXECUTABLE)
