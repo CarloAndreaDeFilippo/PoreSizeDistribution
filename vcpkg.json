@@ -1,6 +1,7 @@
 {
     "name": "psd",
     "version-string": "1.0",
+    "builtin-baseline": "26283ac5e8a068561a718ce18b169bfad84c7dab",
     "dependencies": [
         "boost-filesystem",
         "boost-system",
