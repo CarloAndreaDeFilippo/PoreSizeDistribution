@@ -1,8 +1,6 @@
 name: CMake Cross-Platform CI
 
-on:
-  push:
-  pull_request:
+on: [push]
 
 jobs:
   build:
@@ -11,7 +9,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest, macos-latest, windows-latest]
+        os: [ubuntu-latest, windows-latest]
         build_type: [Release]
 
     steps:
@@ -26,10 +24,11 @@ jobs:
           vcpkgJsonGlob: '**/vcpkg.json'
 
       - name: Configure CMake
+        shell: bash
         run: |
           cmake -B build -S . \
             -DCMAKE_BUILD_TYPE=${{ matrix.build_type }} \
-            -DCMAKE_TOOLCHAIN_FILE=$VCPKG_ROOT/scripts/buildsystems/vcpkg.cmake
+            -DCMAKE_TOOLCHAIN_FILE=${{ github.workspace }}/scripts/buildsystems/vcpkg.cmake
 
       - name: Build
         run: cmake --build build --config ${{ matrix.build_type }}
