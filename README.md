@@ -18,42 +18,41 @@ Currently, only Linux is supported.
 
 ### Requirements
 
-* C++11 compiler (g++)
-* [NLopt](https://github.com/stevengj/nlopt) for nonlinear optimization, follow their installation instructions. Alternatively, install libnlopt0 package on Linux (sudo apt-get install libnlopt0).
-* An OpenMP-enabled compiler is not required. OpenMP is enabled by default, but you can disable it at compile time if needed.
+* CMake 3.10+
+* C++11 compiler
+* Boost Libraries: specifically boost::filesystem and boost::system
+* [NLopt](https://github.com/stevengj/nlopt) for nonlinear optimization
+* OpenMP: optional for parallel computing on CPU
 
 ### Building
 
-In the project directory:
+Building the project using CMake:
 
 ```
 cd PoreSizeDistribution
-```
-
-Build with OpenMP (default):
-
-```
+mkdir build && cd build
+cmake ..
 make -j
 ```
 
-Build without OpenMP:
+#### CMake options
 
-```
-make USE_OMP=0 -j
-```
+* ```-DUSE_OPENMP=ON```: Enable OpenMP support
+
+* ```-DCMAKE_BUILD_TYPE=Debug```: Build debug version
 
 ### Usage
 
 To run the program once built:
 
 ```
-./psd.out SETTINGS_FILE
+./psd SETTINGS_FILE
 ```
 
 If OpenMP is enabled, you can select the number of threads at runtime:
 
 ```
-OMP_NUM_THREADS=NUMBER_OF_THREADS ./psd.out SETTINGS_FILE
+OMP_NUM_THREADS=NUMBER_OF_THREADS ./psd SETTINGS_FILE
 ```
 
 ### Settings file
@@ -62,7 +61,7 @@ The file ```SETTINGS_FILE```, in the JSON format (see [nlohmann json](https://gi
 In particular, it is possible to choose:
 * ```confFileName```: the name of the file for the particle configuration.
 * ```dataFolder```: the name of the folder for the output data.
-* ```"useCogli2"```: choose whether to save a visualization file compatible with [cogli2](https://sourceforge.net/projects/cogli1/). If set to true, it is possible to change other settings such as
+* ```useCogli2```: choose whether to save a visualization file compatible with [cogli2](https://sourceforge.net/projects/cogli1/). If set to true, it is possible to change other settings such as
     * ```cogliFile```: file name of cogli2 output.
     * ```sphereColor```: string that represents the color of the spheres to represent the polymer beads in RGBA (from 0 to 1), _e.g._ ```"1,0,0,1"``` for blue spheres.
     * ```poreSphereColor```: string that represents the color of the spheres to represent the pore.
